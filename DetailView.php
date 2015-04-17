@@ -1,4 +1,9 @@
 <?php
+/**
+ * @link    http://hiqdev.com/yii2-higrid
+ * @license http://hiqdev.com/yii2-higrid/license
+ * @copyright Copyright (c) 2015 HiQDev
+ */
 
 namespace hiqdev\higrid;
 
