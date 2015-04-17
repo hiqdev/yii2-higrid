@@ -1,7 +1,7 @@
 Yii 2 advanced grid
 ===================
 
-- GridDetailView: use grid/Columns for DetailView
+- Grid DetailView: use grid/Columns for DetailView
 - more later
 
 For more info see wiki:
