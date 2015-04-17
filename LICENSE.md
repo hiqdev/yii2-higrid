@@ -1,5 +1,5 @@
-This Yii 2 extension is free software.
-It is released under the terms of the following BSD License.
+The yii2-higrid extension is free software.
+It is released under the terms of the following BSD 3-clause License.
 
 Copyright © 2014-2015 by HiQDev (http://hiqdev.com)
 All rights reserved.

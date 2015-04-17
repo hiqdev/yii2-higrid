@@ -2,7 +2,7 @@
     "name": "hiqdev/yii2-higrid",
     "type": "yii2-extension",
     "description": "Yii 2 advanced grid",
-    "keywords": ["higrid", "yii2", "extension", "grid"],
+    "keywords": ["higrid", "grid", "yii2", "extension"],
     "homepage": "https://hiqdev.com/yii2-higrid",
     "support": {
         "email":  "support@hiqdev.com",
