@@ -114,7 +114,7 @@ class DetailView extends GridView
         if (is_string($this->template)) {
             return strtr($this->template, [
                 '{label}' => $column->renderHeaderCell(),
-                '{value}' => $column->renderDataCell($this->model, 0, 0),
+                '{value}' => $column->renderDataCell($this->model, $this->model->getPrimaryKey(), 0),
             ]);
         } else {
             return call_user_func($this->template, $column, $index, $this);
