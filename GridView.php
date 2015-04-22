@@ -12,8 +12,6 @@ use Yii;
 /**
  * Our GridView for extending.
  *
- * @author Andrii Vasyliev <sol@hiqdev.com>
- * @since 2.0
  */
 class GridView extends \kartik\grid\GridView
 {
