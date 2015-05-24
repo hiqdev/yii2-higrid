@@ -1,0 +1,59 @@
+{
+    "package": {
+        "name":         "yii2-higrid",
+        "label":        "HiGrid",
+        "title":        "Advanced Grid for Yii2",
+        "type":         "yii2-extension",
+        "features":     "yii2, extension",
+        "license":      "BSD-3-Clause",
+        "forum":        "https://forum.hiqdev.com/yii2",
+        "language":     "PHP",
+        "keywords":     "grid, data tables, extension, yii2",
+        "description":  "Grid DetailView: use grid/Columns for DetailView and more later",
+        "year":         2015
+    },
+    "vendor": {
+        "name":     "hiqdev",
+        "title":    "HiQDev",
+        "homepage": "https://hiqdev.com/",
+        "email":    "support@hiqdev.com",
+        "authors": {
+            "Andrii Vasyliev": {
+                "role":     "Project lead",
+                "email":    "sol@hiqdev.com",
+                "homepage": "https://hipanel.com/"
+            },
+            "Dmitry Naumenko": {
+                "role":     "Lead backend developer",
+                "email":    "silverfire@hiqdev.com",
+                "homepage": "http://silverfire.me/"
+            },
+            "Andrey Klochok": {
+                "role":     "Lead frontend developer",
+                "email":    "tafid@hiqdev.com",
+                "homepage": "https://hiqdev.com/"
+            },
+            "Yuriy Myronchuk": {
+                "role":     "QA Lead",
+                "email":    "bladeroot@hiqdev.com",
+                "homepage": "https://hiqdev.com/"
+            }
+        }
+    },
+    "deps": "all",
+    "all": {
+        "deps": "git, composer, LICENSE, README.md, CHANGELOG.md"
+    },
+    "composer.json": {
+        "require": {
+            "yiisoft/yii2":                 "~2.0",
+            "hiqdev/yii2-collection":       "*@dev",
+            "hiqdev/yii2-asset-datatables": "~1.10"
+        },
+        "autoload": {
+            "psr-4": {
+                "hiqdev\\higrid\\": ""
+            }
+        }
+    }
+}
