@@ -7,6 +7,7 @@ hiqdev/yii2-higrid commits history
     - 07043ac 2015-07-24 php-cs-fixed (sol@hiqdev.com)
     - 06dd7d1 2015-07-24 moved to src and rehideved (sol@hiqdev.com)
 - Fixed GridView::detailView
+    - 09805e2 2015-07-24 fixed GridView::detailView: + allModels (sol@hiqdev.com)
     - 9101c4b 2015-07-24 fixed GridView::detailView() (sol@hiqdev.com)
 - Added first working version
     - 25519aa 2015-05-24 hideved (sol@hiqdev.com)
