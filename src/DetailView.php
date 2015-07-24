@@ -1,16 +1,20 @@
 <?php
-/**
- * @link    http://hiqdev.com/yii2-higrid
- * @license http://hiqdev.com/yii2-higrid/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Advanced Grid for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-higrid
+ * @package   yii2-higrid
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hiqdev\higrid;
 
-use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
-use yii\data\ArrayDataProvider;
 use Yii;
+use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Html;
 
 /**
  * DetailView displays the detail of a single data [[Model]].
@@ -45,21 +49,19 @@ use Yii;
  * ~~~
  *
  * @author Andrii Vasyliev <sol@hiqdev.com>
- * @since 2.0
  */
 class DetailView extends GridView
 {
-
     /**
      * @var array|object the data model whose details are to be displayed. This can be a [[Model]] instance,
-     * an associative array, an object that implements [[Arrayable]] interface or simply an object with defined
-     * public accessible non-static properties.
+     *                   an associative array, an object that implements [[Arrayable]] interface or simply an object with defined
+     *                   public accessible non-static properties.
      */
     public $model;
     /**
      * @var string|callable the template used to render a single attribute. If a string, the token `{label}`
-     * and `{value}` will be replaced with the label and the value of the corresponding attribute.
-     * If a callback (e.g. an anonymous function), the signature must be as follows:
+     *                      and `{value}` will be replaced with the label and the value of the corresponding attribute.
+     *                      If a callback (e.g. an anonymous function), the signature must be as follows:
      *
      * ~~~
      * function ($attribute, $index, $widget)
@@ -68,10 +70,11 @@ class DetailView extends GridView
      * where `$attribute` refer to the specification of the attribute being rendered, `$index` is the zero-based
      * index of the attribute in the [[attributes]] array, and `$widget` refers to this widget instance.
      */
-    public $template = "<tr>{label}{value}</tr>";
+    public $template = '<tr>{label}{value}</tr>';
     /**
      * @var array the HTML attributes for the container tag of this widget. The "tag" option specifies
-     * what container tag should be used. It defaults to "table" if not set.
+     *            what container tag should be used. It defaults to "table" if not set.
+     *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = ['class' => 'table table-striped table-bordered detail-view'];
@@ -95,7 +98,7 @@ class DetailView extends GridView
     public function run()
     {
         $rows = [];
-        $i = 0;
+        $i    = 0;
         foreach ($this->columns as $column) {
             $rows[] = $this->renderColumn($column, $i++);
         }
@@ -106,8 +109,10 @@ class DetailView extends GridView
 
     /**
      * Renders a single column.
+     *
      * @param array $column the specification of the column to be rendered.
-     * @param integer $index the zero-based index of the column in the [[columns]] array
+     * @param int   $index  the zero-based index of the column in the [[columns]] array
+     *
      * @return string the rendering result
      */
     protected function renderColumn($column, $index)
@@ -135,6 +140,7 @@ class DetailView extends GridView
         if ($this->grid && method_exists($this->grid, 'createDataColumn')) {
             return call_user_func([$this->grid, 'createDataColumn'], $text);
         }
+
         return parent::createDataColumn($text);
     }
 }

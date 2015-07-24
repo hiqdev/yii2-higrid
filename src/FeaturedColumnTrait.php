@@ -1,12 +1,21 @@
 <?php
 
+/*
+ * Advanced Grid for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-higrid
+ * @package   yii2-higrid
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015, HiQDev (https://hiqdev.com/)
+ */
+
 namespace hiqdev\higrid;
 
-use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 
 /**
- * Trait FeaturedColumnTrait
+ * Trait FeaturedColumnTrait.
  *
  * Gives 2 features:
  * - popover text shown at header cell
@@ -23,8 +32,8 @@ trait FeaturedColumnTrait
      * @var array Options to popover()
      */
     public $popoverOptions = [
-        'placement'     => 'bottom',
-        'selector'      => 'a',
+        'placement' => 'bottom',
+        'selector'  => 'a',
     ];
 
     /**
@@ -35,10 +44,13 @@ trait FeaturedColumnTrait
     /**
      * @inheritdoc
      */
-    public function init () {
+    public function init()
+    {
         parent::init();
-        if ($this->hasProperty('defaultOptions')) foreach ($this->defaultOptions as $k => $v) {
-            $this->{$k} = ArrayHelper::merge($v,$this->{$k});
+        if ($this->hasProperty('defaultOptions')) {
+            foreach ($this->defaultOptions as $k => $v) {
+                $this->{$k} = ArrayHelper::merge($v, $this->{$k});
+            }
         };
         $this->registerClientScript();
     }
@@ -46,47 +58,52 @@ trait FeaturedColumnTrait
     /**
      * @inheritdoc
      */
-    public function registerClientScript () {
+    public function registerClientScript()
+    {
         $view = \Yii::$app->getView();
-        $ops = Json::encode($this->popoverOptions);
+        $ops  = Json::encode($this->popoverOptions);
         $view->registerJs("$('#{$this->grid->id} thead th[data-toggle=\"popover\"]').popover($ops);", \yii\web\View::POS_READY);
     }
 
     /**
      * @inheritdoc
      */
-    public function renderHeaderCellContent () {
+    public function renderHeaderCellContent()
+    {
         if ($this->popover) {
-            $this->headerOptions = ArrayHelper::merge($this->headerOptions,[
+            $this->headerOptions = ArrayHelper::merge($this->headerOptions, [
                 'data-toggle'  => 'popover',
                 'data-trigger' => 'hover',
                 'data-content' => $this->popover,
             ]);
         };
+
         return parent::renderHeaderCellContent();
     }
 
     /**
-     * Getter for filterAttribute
+     * Getter for filterAttribute.
      */
-    public function getFilterAttribute () {
+    public function getFilterAttribute()
+    {
         return $this->filterAttribute ?: $this->attribute;
     }
 
     /**
      * @inheritdoc
      */
-    protected function renderFilterCellContent () {
+    protected function renderFilterCellContent()
+    {
         /// XXX better change yii
         if ($this->hasProperty('attribute')) {
-            $save = $this->attribute;
+            $save            = $this->attribute;
             $this->attribute = $this->getFilterAttribute();
         };
         $out = parent::renderFilterCellContent();
         if ($this->hasProperty('attribute')) {
             $this->attribute = $save;
         };
+
         return $out;
     }
-
 }

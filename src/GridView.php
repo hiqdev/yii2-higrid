@@ -1,8 +1,12 @@
 <?php
-/**
- * @link    http://hiqdev.com/yii2-higrid
- * @license http://hiqdev.com/yii2-higrid/license
- * @copyright Copyright (c) 2015 HiQDev
+
+/*
+ * Advanced Grid for Yii2
+ *
+ * @link      https://github.com/hiqdev/yii2-higrid
+ * @package   yii2-higrid
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015, HiQDev (https://hiqdev.com/)
  */
 
 namespace hiqdev\higrid;
@@ -27,40 +31,45 @@ class GridView extends \kartik\grid\GridView
     /**
      * @inheritdoc
      */
-    static public $detailViewClass = 'hiqdev\higrid\DetailView';
+    public static $detailViewClass = 'hiqdev\higrid\DetailView';
 
     /**
      * Runs DetailView widget based on this GridView.
+     *
      * @param
      */
-    static public function detailView (array $config = []) {
+    public static function detailView(array $config = [])
+    {
         $class = static::$detailViewClass ?: DetailView::className();
-        $grid = Yii::createObject([
-            'class'         => get_called_class(),
-            'dataProvider'  => new ArrayDataProvider(),
+        $grid  = Yii::createObject([
+            'class'        => get_called_class(),
+            'dataProvider' => new ArrayDataProvider(),
         ]);
 
         return call_user_func([$class, 'widget'], array_merge(compact('grid'), $config));
     }
 
     /**
-     * Creates a [[DataColumn]] object with given additional config
+     * Creates a [[DataColumn]] object with given additional config.
+     *
      * @param array $config additional config for [[DataColumn]]
+     *
      * @return DataColumn the column instance
      */
-    protected function createColumnObject (array $config = [])
+    protected function createColumnObject(array $config = [])
     {
         return Yii::createObject(array_merge([
             'class' => $this->dataColumnClass ?: 'yii\grid\DataColumn',
-            'grid' => $this,
+            'grid'  => $this,
         ], $config));
     }
 
     /**
      * Default (predefined) columns.
+     *
      * @return array array of predefined DataColumn configs
      */
-    static protected function defaultColumns()
+    protected static function defaultColumns()
     {
         return [];
     }
@@ -68,39 +77,44 @@ class GridView extends \kartik\grid\GridView
     /**
      * @var array Cached default columns.
      */
-    static protected $_defaultColumns = [];
+    protected static $_defaultColumns = [];
 
     /**
      * Getter for $_defaultColumns.
+     *
      * @return array
      */
-    static public function getDefaultColumns()
+    public static function getDefaultColumns()
     {
         $class = get_called_class();
         if (is_array(static::$_defaultColumns[$class])) {
             return static::$_defaultColumns[$class];
         };
+
         return static::$_defaultColumns[$class] = static::gatherDefaultColumns();
     }
 
     /**
-     * Scans recursively by hierarchy for defaultColumns and caches to $_defaultColumns
+     * Scans recursively by hierarchy for defaultColumns and caches to $_defaultColumns.
      */
-    static public function gatherDefaultColumns()
+    public static function gatherDefaultColumns()
     {
         $columns = static::defaultColumns();
         $parent  = (new \ReflectionClass(get_called_class()))->getParentClass();
         if ($parent->hasMethod('gatherDefaultColumns')) {
             $columns = array_merge(call_user_func([$parent->getName(), 'gatherDefaultColumns']), $columns);
         };
+
         return $columns;
     }
 
     /**
-     * Returns column from $_defaultColumns
+     * Returns column from $_defaultColumns.
+     *
      * @return array DataColumn config
      */
-    static public function column ($name, array $config = []) {
+    public static function column($name, array $config = [])
+    {
         $column = static::getDefaultColumns()[$name];
 
         return is_array($column) ? array_merge($column, $config) : null;
@@ -109,14 +123,15 @@ class GridView extends \kartik\grid\GridView
     /**
      * @inheritdoc
      */
-    protected function createDataColumn ($text)
+    protected function createDataColumn($text)
     {
         $column = static::column($text);
         if (is_array($column)) {
             $column['attribute'] = $column['attribute'] ?: $text;
+
             return $this->createColumnObject($column);
         }
+
         return parent::createDataColumn($text);
     }
-
 }

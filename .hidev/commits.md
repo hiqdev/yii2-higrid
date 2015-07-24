@@ -3,6 +3,8 @@ hiqdev/yii2-higrid commits history
 
 ## Under development
 
+    - 06dd7d1 2015-07-24 moved to src and rehideved (sol@hiqdev.com)
+    - 9101c4b 2015-07-24 fixed GridView::detailView() (sol@hiqdev.com)
 - Added first working version
     - 25519aa 2015-05-24 hideved (sol@hiqdev.com)
     - efb7f21 2015-05-24 hideved (sol@hiqdev.com)
