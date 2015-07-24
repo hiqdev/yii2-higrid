@@ -1,7 +1,10 @@
 hiqdev/yii2-higrid changelog
 ----------------------------
 
-### 0.1.0 under development
+## Under development
 
-- inited
+- Added first working version
+- Inited
+
+## Development started 2015-04-10
 

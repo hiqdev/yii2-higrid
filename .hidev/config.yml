@@ -1,0 +1,12 @@
+package:
+    name:           yii2-higrid
+    namespace:      higrid
+    label:          HiGrid
+    title:          Advanced Grid for Yii2
+    type:           yii2-extension
+    keywords:       grid, data tables, extension, yii2
+    description:    Grid DetailView: use grid/Columns for DetailView and more later
+    year:           2015
+
+require:
+    hiqdev/hidev-config-php:    "*@dev"
