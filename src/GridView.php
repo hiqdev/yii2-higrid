@@ -43,7 +43,7 @@ class GridView extends \kartik\grid\GridView
         $class = static::$detailViewClass ?: DetailView::className();
         $grid  = Yii::createObject([
             'class'        => get_called_class(),
-            'dataProvider' => new ArrayDataProvider(),
+            'dataProvider' => new ArrayDataProvider(['allModels' => [$config['model']]]),
         ]);
 
         return call_user_func([$class, 'widget'], array_merge(compact('grid'), $config));
