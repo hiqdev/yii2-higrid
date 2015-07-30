@@ -23,6 +23,7 @@ use yii\data\ArrayDataProvider;
  */
 class GridView extends \kartik\grid\GridView
 {
+    public $boxed = true;
     /**
      * @inheritdoc
      */
