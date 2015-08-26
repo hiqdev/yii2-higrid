@@ -25,12 +25,12 @@ class GridView extends \kartik\grid\GridView
 {
     public $boxed = true;
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public $dataColumnClass = 'hiqdev\higrid\DataColumn';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public static $detailViewClass = 'hiqdev\higrid\DetailView';
 
@@ -122,7 +122,7 @@ class GridView extends \kartik\grid\GridView
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createDataColumn($text)
     {

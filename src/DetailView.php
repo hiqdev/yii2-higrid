@@ -133,7 +133,7 @@ class DetailView extends GridView
     public $grid;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function createDataColumn($text)
     {

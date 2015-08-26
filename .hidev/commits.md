@@ -3,6 +3,7 @@ hiqdev/yii2-higrid commits history
 
 ## Under development
 
+    - 50fdec7 2015-08-26 rehideved (sol@hiqdev.com)
     - 135558e 2015-08-26 + sortAttribute option (sol@hiqdev.com)
     - 811a9ba 2015-07-30 Add new boxed property (andreyklochok@gmail.com)
 - Changed code styling: moved to src and php-cs-fixed

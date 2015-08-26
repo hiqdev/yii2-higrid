@@ -48,7 +48,7 @@ trait FeaturedColumnTrait
     public $sortAttribute;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function init()
     {
@@ -62,7 +62,7 @@ trait FeaturedColumnTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function registerClientScript()
     {
@@ -72,7 +72,7 @@ trait FeaturedColumnTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function renderHeaderCellContent()
     {
@@ -115,7 +115,7 @@ trait FeaturedColumnTrait
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function renderFilterCellContent()
     {
