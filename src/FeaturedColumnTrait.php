@@ -11,6 +11,7 @@
 
 namespace hiqdev\higrid;
 
+use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
@@ -42,6 +43,11 @@ trait FeaturedColumnTrait
     public $filterAttribute;
 
     /**
+     * @var string name for filter input
+     */
+    public $sortAttribute;
+
+    /**
      * @inheritdoc
      */
     public function init()
@@ -60,7 +66,7 @@ trait FeaturedColumnTrait
      */
     public function registerClientScript()
     {
-        $view = \Yii::$app->getView();
+        $view = Yii::$app->getView();
         $ops  = Json::encode($this->popoverOptions);
         $view->registerJs("$('#{$this->grid->id} thead th[data-toggle=\"popover\"]').popover($ops);", \yii\web\View::POS_READY);
     }
@@ -70,15 +76,26 @@ trait FeaturedColumnTrait
      */
     public function renderHeaderCellContent()
     {
+        /// XXX better change yii
+        if ($this->hasProperty('attribute')) {
+            $save            = $this->attribute;
+            $this->attribute = $this->getSortAttribute();
+        }
+
         if ($this->popover) {
             $this->headerOptions = ArrayHelper::merge($this->headerOptions, [
                 'data-toggle'  => 'popover',
                 'data-trigger' => 'hover',
                 'data-content' => $this->popover,
             ]);
-        };
+        }
 
-        return parent::renderHeaderCellContent();
+        $res = parent::renderHeaderCellContent();
+        if ($this->hasProperty('attribute')) {
+            $this->attribute = $save;
+        }
+
+        return $res;
     }
 
     /**
@@ -87,6 +104,14 @@ trait FeaturedColumnTrait
     public function getFilterAttribute()
     {
         return $this->filterAttribute ?: $this->attribute;
+    }
+
+    /**
+     * Getter for sortAttribute.
+     */
+    public function getSortAttribute()
+    {
+        return $this->sortAttribute ?: $this->attribute;
     }
 
     /**
