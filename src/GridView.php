@@ -13,6 +13,7 @@ namespace hiqdev\higrid;
 
 use Yii;
 use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class GridView.
@@ -35,17 +36,21 @@ class GridView extends \kartik\grid\GridView
     public static $detailViewClass = 'hiqdev\higrid\DetailView';
 
     /**
-     * Runs DetailView widget based on this GridView.
+     * Runs DetailWidget based on GridView
      *
-     * @param
+     * @param array $config Config that will be passed to [[detailViewClass]] initialisation.
+     * Special element `gridOptions` will be passed to `GridView` initialisation
+     *
+     * @return mixed
+     * @throws \yii\base\InvalidConfigException
      */
     public static function detailView(array $config = [])
     {
         $class = static::$detailViewClass ?: DetailView::className();
-        $grid  = Yii::createObject([
+        $grid  = Yii::createObject(ArrayHelper::merge([
             'class'        => get_called_class(),
             'dataProvider' => new ArrayDataProvider(['allModels' => [$config['model']]]),
-        ]);
+        ], ArrayHelper::remove($config, 'gridOptions', [])));
 
         return call_user_func([$class, 'widget'], array_merge(compact('grid'), $config));
     }
