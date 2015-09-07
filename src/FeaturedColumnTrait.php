@@ -111,6 +111,9 @@ trait FeaturedColumnTrait
      */
     public function getSortAttribute()
     {
+        if ($this->sortAttribute === false) {
+            return false;
+        }
         return $this->sortAttribute ?: $this->attribute;
     }
 
