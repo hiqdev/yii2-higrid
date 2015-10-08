@@ -11,6 +11,7 @@
 
 namespace hiqdev\higrid;
 
+use Closure;
 use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -36,16 +37,6 @@ trait FeaturedColumnTrait
         'placement' => 'bottom',
         'selector'  => 'a',
     ];
-
-    /**
-     * @var string name for filter input
-     */
-    public $filterAttribute;
-
-    /**
-     * @var string name for filter input
-     */
-    public $sortAttribute;
 
     /**
      * {@inheritdoc}
@@ -99,12 +90,9 @@ trait FeaturedColumnTrait
     }
 
     /**
-     * Getter for filterAttribute.
+     * @var string name for filter input
      */
-    public function getFilterAttribute()
-    {
-        return $this->filterAttribute ?: $this->attribute;
-    }
+    public $sortAttribute;
 
     /**
      * Getter for sortAttribute.
@@ -118,19 +106,48 @@ trait FeaturedColumnTrait
     }
 
     /**
+     * @var string name for filter input
+     */
+    public $filterAttribute;
+
+    /**
+     * Getter for filterAttribute.
+     */
+    public function getFilterAttribute()
+    {
+        return $this->filterAttribute ?: $this->attribute;
+    }
+
+    /**
+     * @var string|array|boolean|callable the HTML code representing a filter input (e.g. a text field, a dropdown list)
+     * that is used for this data column. This property is effective only when [[GridView::filterModel]] is set.
+     *
+     * - If this property is not set, a text field will be generated as the filter input;
+     * - If this property is an array, a dropdown list will be generated that uses this property value as
+     *   the list options.
+     * - If this property is a closure, it's output will be used as a filter value.
+     * Example determination of closure: `function ($dataColumn, $model, $attribute) { ... }`
+     * - If you don't want a filter for this data column, set this value to be false.
+     */
+    public $filter;
+
+    /**
      * {@inheritdoc}
      */
     protected function renderFilterCellContent()
     {
+        if ($this->filter instanceof Closure) {
+            return call_user_func($this->filter, $this, $this->grid->filterModel, $this->attribute);
+        }
         /// XXX better change yii
         if ($this->hasProperty('attribute')) {
             $save            = $this->attribute;
             $this->attribute = $this->getFilterAttribute();
-        };
+        }
         $out = parent::renderFilterCellContent();
         if ($this->hasProperty('attribute')) {
             $this->attribute = $save;
-        };
+        }
 
         return $out;
     }
