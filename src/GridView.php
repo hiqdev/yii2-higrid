@@ -36,10 +36,10 @@ class GridView extends \kartik\grid\GridView
     public static $detailViewClass = 'hiqdev\higrid\DetailView';
 
     /**
-     * Runs DetailWidget based on GridView
+     * Runs DetailView widget based on this GridView.
      *
      * @param array $config Config that will be passed to [[detailViewClass]] initialisation.
-     * Special element `gridOptions` will be passed to `GridView` initialisation
+     * Special element `gridOptions` will be merged to `GridView` initialisation config array.
      *
      * @return mixed
      * @throws \yii\base\InvalidConfigException
