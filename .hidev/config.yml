@@ -1,6 +1,5 @@
 package:
     name:           yii2-higrid
-    namespace:      higrid
     label:          HiGrid
     title:          Advanced Grid for Yii2
     type:           yii2-extension
