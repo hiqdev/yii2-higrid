@@ -22,7 +22,7 @@ use yii\helpers\ArrayHelper;
  * - creates DetailView widget based on this GridView
  * - default columns functionality
  */
-class GridView extends \kartik\grid\GridView
+class GridView extends \yii\grid\GridView
 {
     public $boxed = true;
     /**
