@@ -6,13 +6,18 @@
  * @link      https://github.com/hiqdev/yii2-higrid
  * @package   yii2-higrid
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015, HiQDev (https://hiqdev.com/)
+ * @copyright Copyright (c) 2015, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\higrid;
 
+use Closure;
+use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnAsset;
+use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
 use Yii;
+use yii\bootstrap\Html;
 use yii\data\ArrayDataProvider;
+use yii\grid\Column;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -36,13 +41,44 @@ class GridView extends \yii\grid\GridView
     public static $detailViewClass = 'hiqdev\higrid\DetailView';
 
     /**
+     * @var bool whether to allow columns resizing. Defaults to true
+     */
+    public $resizableColumns = true;
+
+    public function run()
+    {
+        $this->registerResizableColumns();
+        parent::run();
+    }
+
+    /**
+     * Registers ResizableColumns plugin when [[resizableColumns]] is true
+     */
+    public function registerResizableColumns()
+    {
+        if (!$this->resizableColumns !== false) {
+            return;
+        }
+
+        $this->tableOptions['data-resizable-columns-id'] = $this->id;
+
+        ResizableColumnsAsset::register($this->getView());
+        $this->getView()->registerJs("
+            $('table[data-resizable-columns-id]').resizableColumns({
+              store: store
+            });
+        ");
+    }
+
+    /**
      * Runs DetailView widget based on this GridView.
      *
      * @param array $config Config that will be passed to [[detailViewClass]] initialisation.
      * Special element `gridOptions` will be merged to `GridView` initialisation config array.
      *
-     * @return mixed
      * @throws \yii\base\InvalidConfigException
+     *
+     * @return mixed
      */
     public static function detailView(array $config = [])
     {

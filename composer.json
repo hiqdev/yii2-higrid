@@ -47,7 +47,7 @@
         "yiisoft/yii2": "~2.0",
         "hiqdev/yii2-collection": "*@dev",
         "hiqdev/yii2-asset-datatables": "~1.10",
-        "bower-asset/jquery-resizable-columns": "*"
+        "hiqdev/yii2-asset-jquery-resizable-columns": "*@dev"
     },
     "autoload": {
         "psr-4": {
