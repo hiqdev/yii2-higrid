@@ -19,9 +19,10 @@ use yii\helpers\Json;
 /**
  * Trait FeaturedColumnTrait.
  *
- * Gives 2 features:
+ * Gives the next features:
  * - popover text shown at header cell
  * - filterAttribute: to specify name of attribute used for filtering distinct from attribute
+ * - resizable columns
  */
 trait FeaturedColumnTrait
 {
@@ -44,6 +45,11 @@ trait FeaturedColumnTrait
     public function init()
     {
         parent::init();
+
+        if ($this->grid->resizableColumns !== false && !isset($this->headerOptions['data-resizable-column-id'])) {
+            $this->headerOptions['data-resizable-column-id'] = $this->attribute;
+        }
+
         if ($this->hasProperty('defaultOptions')) {
             foreach ($this->defaultOptions as $k => $v) {
                 $this->{$k} = ArrayHelper::merge($v, $this->{$k});
