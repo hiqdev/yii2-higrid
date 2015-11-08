@@ -18,24 +18,10 @@ namespace hiqdev\higrid;
  */
 class DataColumn extends \yii\grid\DataColumn
 {
-    use FeaturedColumnTrait {
-        init as traitInit;
-    }
+    use FeaturedColumnTrait;
 
     /**
      * @var GridView the grid view object that owns this column.
      */
     public $grid;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function init()
-    {
-        if ($this->grid->resizableColumns) {
-            $this->headerOptions['data-resizable-columns-id'] = $this->attribute;
-        }
-
-        $this->traitInit();
-    }
 }
