@@ -11,14 +11,14 @@
 
 namespace hiqdev\higrid;
 
-use Closure;
-use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnAsset;
 use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
 use Yii;
 use yii\bootstrap\Html;
 use yii\data\ArrayDataProvider;
 use yii\grid\Column;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
+use yii\web\JsExpression;
 
 /**
  * Class GridView.
@@ -41,9 +41,14 @@ class GridView extends \yii\grid\GridView
     public static $detailViewClass = 'hiqdev\higrid\DetailView';
 
     /**
-     * @var bool whether to allow columns resizing. Defaults to true
+     * @var array|boolean
+     *  - array: options for Jquery Resizable Columns plugin initiate call
+     *  - boolean false: resizable is disabled
+     *
+     * Defaults to `['store' => new JsExpression('store')]`.
+     * @see registerResizableColumns()
      */
-    public $resizableColumns = true;
+    public $resizableColumns = [];
 
     public function run()
     {
@@ -52,7 +57,19 @@ class GridView extends \yii\grid\GridView
     }
 
     /**
-     * Registers ResizableColumns plugin when [[resizableColumns]] is true
+     * {@inheritdoc}
+     */
+    public function getId($autoGenerate = true)
+    {
+        if ($autoGenerate && parent::getId(false) === null) {
+            $this->id = hash('crc32b', Json::encode($this->columns));
+        }
+
+        return parent::getId();
+    }
+
+    /**
+     * Registers ResizableColumns plugin when [[resizableColumns]] is not false
      */
     public function registerResizableColumns()
     {
@@ -63,11 +80,10 @@ class GridView extends \yii\grid\GridView
         $this->tableOptions['data-resizable-columns-id'] = $this->id;
 
         ResizableColumnsAsset::register($this->getView());
-        $this->getView()->registerJs("
-            $('table[data-resizable-columns-id]').resizableColumns({
-              store: store
-            });
-        ");
+        $resizableColumns = Json::encode(ArrayHelper::merge([
+            'store' => new JsExpression('store')
+        ], $this->resizableColumns));
+        $this->getView()->registerJs("$('table[data-resizable-columns-id]').resizableColumns($resizableColumns);");
     }
 
     /**
