@@ -81,7 +81,7 @@ class GridView extends \yii\grid\GridView
         $resizableColumns = Json::encode(ArrayHelper::merge([
             'store' => new JsExpression('store')
         ], $this->resizableColumns));
-        $this->getView()->registerJs("$('table[data-resizable-columns-id]').resizableColumns($resizableColumns);");
+        $this->getView()->registerJs("$('#{$this->id}').resizableColumns($resizableColumns);");
     }
 
     /**
@@ -98,11 +98,12 @@ class GridView extends \yii\grid\GridView
     {
         $class = static::$detailViewClass ?: DetailView::className();
         $grid  = Yii::createObject(ArrayHelper::merge([
-            'class'        => get_called_class(),
+            'class' => get_called_class(),
             'dataProvider' => new ArrayDataProvider(['allModels' => [$config['model']]]),
         ], ArrayHelper::remove($config, 'gridOptions', [])));
+        $config['grid'] = $grid;
 
-        return call_user_func([$class, 'widget'], array_merge(compact('grid'), $config));
+        return call_user_func([$class, 'widget'], $config);
     }
 
     /**
