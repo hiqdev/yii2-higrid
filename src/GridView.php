@@ -13,9 +13,7 @@ namespace hiqdev\higrid;
 
 use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
 use Yii;
-use yii\bootstrap\Html;
 use yii\data\ArrayDataProvider;
-use yii\grid\Column;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use yii\web\JsExpression;
