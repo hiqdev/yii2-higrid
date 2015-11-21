@@ -81,7 +81,7 @@ class GridView extends \yii\grid\GridView
         $resizableColumns = Json::encode(ArrayHelper::merge([
             'store' => new JsExpression('store')
         ], $this->resizableColumns));
-        $this->getView()->registerJs("$('#{$this->id}').resizableColumns($resizableColumns);");
+        $this->getView()->registerJs("$('#{$this->id} table[data-resizable-columns-id]').resizableColumns($resizableColumns);");
     }
 
     /**
