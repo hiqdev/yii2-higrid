@@ -12,6 +12,7 @@
 namespace hiqdev\higrid;
 
 use Yii;
+use yii\base\InvalidConfigException;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
