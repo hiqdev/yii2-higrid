@@ -11,6 +11,7 @@
 
 namespace hiqdev\higrid;
 
+use Closure;
 use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
 use Yii;
 use yii\data\ArrayDataProvider;
@@ -190,5 +191,20 @@ class GridView extends \yii\grid\GridView
         }
 
         return parent::createDataColumn($text);
+    }
+
+    /**
+     * @var string|Closure use it to change default summary rendering
+     */
+    public $summaryRenderer;
+
+    public function renderSummary()
+    {
+        return $this->summaryRenderer instanceof Closure ? call_user_func($this->summaryRenderer, $this) : (parent::renderSummary() . $this->summaryRenderer);
+    }
+
+    public function parentSummary()
+    {
+        return parent::renderSummary();
     }
 }
