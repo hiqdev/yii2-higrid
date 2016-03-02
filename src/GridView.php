@@ -6,7 +6,7 @@
  * @link      https://github.com/hiqdev/yii2-higrid
  * @package   yii2-higrid
  * @license   BSD-3-Clause
- * @copyright Copyright (c) 2015, HiQDev (http://hiqdev.com/)
+ * @copyright Copyright (c) 2015-2016, HiQDev (http://hiqdev.com/)
  */
 
 namespace hiqdev\higrid;
@@ -68,7 +68,7 @@ class GridView extends \yii\grid\GridView
     }
 
     /**
-     * Registers ResizableColumns plugin when [[resizableColumns]] is not false
+     * Registers ResizableColumns plugin when [[resizableColumns]] is not false.
      */
     public function registerResizableColumns()
     {
@@ -80,7 +80,7 @@ class GridView extends \yii\grid\GridView
 
         ResizableColumnsAsset::register($this->getView());
         $resizableColumns = Json::encode(ArrayHelper::merge([
-            'store' => new JsExpression('store')
+            'store' => new JsExpression('store'),
         ], $this->resizableColumns));
         $this->getView()->registerJs("$('#{$this->id} table[data-resizable-columns-id]').resizableColumns($resizableColumns);");
     }
