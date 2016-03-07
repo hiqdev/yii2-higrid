@@ -32,12 +32,12 @@ class GridView extends \yii\grid\GridView
     /**
      * {@inheritdoc}
      */
-    public $dataColumnClass = 'hiqdev\higrid\DataColumn';
+    public $dataColumnClass = DataColumn::class;
 
     /**
      * {@inheritdoc}
      */
-    public static $detailViewClass = 'hiqdev\higrid\DetailView';
+    public static $detailViewClass = DetailView::class;
 
     /**
      * @var array|boolean
