@@ -12,10 +12,9 @@
 namespace hiqdev\higrid;
 
 use Closure;
-use ReflectionClass;
 use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
+use ReflectionClass;
 use Yii;
-use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -226,7 +225,7 @@ class GridView extends \yii\grid\GridView
      * [
      *     'label' => Yii::t('app', 'common'),
      *     'columns' => ['id', 'name', ... ],
-     * ]
+     * ].
      * @return array array of predefined representations
      */
     public static function defaultRepresentations()
