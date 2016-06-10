@@ -12,8 +12,10 @@
 namespace hiqdev\higrid;
 
 use Closure;
+use ReflectionClass;
 use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
 use Yii;
+use yii\bootstrap\ButtonDropdown;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
@@ -25,6 +27,8 @@ use yii\web\JsExpression;
  * Gives 2 features:
  * - creates DetailView widget based on this GridView
  * - default columns functionality
+ * - representations functionality
+ * - summary section extendability with summaryRenderer()
  */
 class GridView extends \yii\grid\GridView
 {
@@ -109,9 +113,7 @@ class GridView extends \yii\grid\GridView
 
     /**
      * Creates a [[DataColumn]] object with given additional config.
-     *
      * @param array $config additional config for [[DataColumn]]
-     *
      * @return DataColumn the column instance
      */
     protected function createColumnObject(array $config = [])
@@ -124,7 +126,6 @@ class GridView extends \yii\grid\GridView
 
     /**
      * Default (predefined) columns.
-     *
      * @return array array of predefined DataColumn configs
      */
     protected static function defaultColumns()
@@ -147,7 +148,7 @@ class GridView extends \yii\grid\GridView
         $class = get_called_class();
         if (is_array(static::$_defaultColumns[$class])) {
             return static::$_defaultColumns[$class];
-        };
+        }
 
         return static::$_defaultColumns[$class] = static::gatherDefaultColumns();
     }
@@ -158,10 +159,10 @@ class GridView extends \yii\grid\GridView
     public static function gatherDefaultColumns()
     {
         $columns = static::defaultColumns();
-        $parent  = (new \ReflectionClass(get_called_class()))->getParentClass();
+        $parent  = (new ReflectionClass(get_called_class()))->getParentClass();
         if ($parent->hasMethod('gatherDefaultColumns')) {
             $columns = array_merge(call_user_func([$parent->getName(), 'gatherDefaultColumns']), $columns);
-        };
+        }
 
         return $columns;
     }
@@ -169,7 +170,7 @@ class GridView extends \yii\grid\GridView
     /**
      * Returns column from $_defaultColumns.
      *
-     * @return array DataColumn config
+     * @return array|null DataColumn config or null if not found
      */
     public static function column($name, array $config = [])
     {
@@ -206,5 +207,72 @@ class GridView extends \yii\grid\GridView
     public function parentSummary()
     {
         return parent::renderSummary();
+    }
+
+    /**
+     * @var string selected representation
+     */
+    protected $_representation;
+
+    /**
+     * @var array available representations
+     */
+    protected static $_representations = [];
+
+    /**
+     * Default (predefined) representations.
+     * Representation is array of label and columns like this:
+     * TODO add Representation class
+     * [
+     *     'label' => Yii::t('app', 'common'),
+     *     'columns' => ['id', 'name', ... ],
+     * ]
+     * @return array array of predefined representations
+     */
+    public static function defaultRepresentations()
+    {
+        return [];
+    }
+
+    /**
+     * Returns representations.
+     * If not set gets from defaultRepresentations().
+     * @static
+     * @return array
+     */
+    public static function getRepresentations()
+    {
+        $class = get_called_class();
+        if (!isset(static::$_representations[$class])) {
+            static::$_representations[$class] = array_filter(static::defaultRepresentations());
+        }
+
+        return static::$_representations[$class];
+    }
+
+    /**
+     * Sets current representation.
+     * Also sets columns list.
+     * @param string $value
+     */
+    public function setRepresentation($value)
+    {
+        $representations = static::getRepresentations();
+        if (!isset($representations[$value])) {
+            $value = key($representations);
+        }
+        if ($value) {
+            $this->columns = $representations[$value]['columns'];
+            $this->_representation = $value;
+        }
+    }
+
+    /**
+     * Returns current selected representation.
+     * @return string
+     */
+    public function getRepresentation()
+    {
+        return $this->_representation;
     }
 }
