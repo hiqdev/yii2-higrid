@@ -5,7 +5,3 @@ package:
     headline:       Yii2 HiGrid
     keywords:       grid, data tables, extension, yii2
     description:    'Grid DetailView: use grid columns for DetailView and more later'
-
-require:
-    hiqdev/hidev-php:    "*"
-    hiqdev/hidev-vendor: "*"

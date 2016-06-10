@@ -49,9 +49,19 @@
         "hiqdev/yii2-asset-datatables": "~1.10",
         "hiqdev/yii2-asset-jquery-resizable-columns": "*@dev"
     },
+    "require-dev": {
+        "hiqdev/hidev-php": "<2.0",
+        "hiqdev/hidev-vendor": "<2.0"
+    },
     "autoload": {
         "psr-4": {
             "hiqdev\\higrid\\": "src"
         }
-    }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }

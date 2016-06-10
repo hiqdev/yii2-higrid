@@ -6,8 +6,8 @@ Yii2 HiGrid
 [![Latest Stable Version](https://poser.pugx.org/hiqdev/yii2-higrid/v/stable)](https://packagist.org/packages/hiqdev/yii2-higrid)
 [![Total Downloads](https://poser.pugx.org/hiqdev/yii2-higrid/downloads)](https://packagist.org/packages/hiqdev/yii2-higrid)
 [![Build Status](https://img.shields.io/travis/hiqdev/yii2-higrid.svg)](https://travis-ci.org/hiqdev/yii2-higrid)
-[![Code Coverage](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/?branch=master)
+[![Scrutinizer Code Coverage](https://img.shields.io/scrutinizer/coverage/g/hiqdev/yii2-higrid.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/)
+[![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/yii2-higrid.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/)
 [![Dependency Status](https://www.versioneye.com/php/hiqdev:yii2-higrid/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:yii2-higrid/dev-master)
 
 Grid DetailView: use grid columns for DetailView and more later
