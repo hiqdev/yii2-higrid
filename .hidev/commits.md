@@ -3,6 +3,12 @@ hiqdev/yii2-higrid commits history
 
 ## Under development
 
+- Added representations functionality to GridView
+    - df54902 2016-06-10 csfixed (sol@hiqdev.com)
+    - 08f06af 2016-06-10 fixing build (sol@hiqdev.com)
+    - d854306 2016-06-10 inited empty tests (sol@hiqdev.com)
+    - 939e185 2016-06-10 csfixed (sol@hiqdev.com)
+    - 67f911d 2016-06-10 added representations functionality to GridView (sol@hiqdev.com)
 - Added `GridView::summaryRenderer` to change default summary rendering
     - e36c73f 2016-03-02 phpcsfixed (sol@hiqdev.com)
     - 6d688a6 2016-03-02 rehideved (sol@hiqdev.com)
