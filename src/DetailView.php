@@ -43,7 +43,7 @@ use yii\helpers\Html;
  *         ],
  *         'created_at:datetime', // creation date formatted as datetime
  *         [
- *             'class' => ActionColumn::className(),
+ *             'class' => ActionColumn::class,
  *         ],
  *     ],
  * ]);

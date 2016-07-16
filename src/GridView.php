@@ -100,7 +100,7 @@ class GridView extends \yii\grid\GridView
      */
     public static function detailView(array $config = [])
     {
-        $class = static::$detailViewClass ?: DetailView::className();
+        $class = static::$detailViewClass ?: DetailView::class;
         $grid  = Yii::createObject(ArrayHelper::merge([
             'class' => get_called_class(),
             'dataProvider' => new ArrayDataProvider(['allModels' => [$config['model']]]),
