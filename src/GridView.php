@@ -223,7 +223,7 @@ class GridView extends \yii\grid\GridView
      * Representation is array of label and columns like this:
      * TODO add Representation class
      * [
-     *     'label' => Yii::t('app', 'common'),
+     *     'label' => Yii::t('cat', 'common'),
      *     'columns' => ['id', 'name', ... ],
      * ].
      * @return array array of predefined representations
