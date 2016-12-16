@@ -36,7 +36,7 @@ trait FeaturedColumnTrait
      */
     public $popoverOptions = [
         'placement' => 'bottom',
-        'selector'  => 'a',
+        'selector' => 'a',
     ];
 
     /**
@@ -64,8 +64,12 @@ trait FeaturedColumnTrait
     public function registerClientScript()
     {
         $view = Yii::$app->getView();
-        $ops  = Json::encode($this->popoverOptions);
-        $view->registerJs("$('#{$this->grid->id} thead th[data-toggle=\"popover\"]').popover($ops);", \yii\web\View::POS_READY);
+        $ops = Json::encode($this->popoverOptions);
+        if (property_exists($this, 'grid')) {
+            $view->registerJs("$('#{$this->grid->id} thead th[data-attribute=\"{$this->attribute}\"]').popover($ops);", \yii\web\View::POS_READY);
+        } else {
+            $view->registerJs("$('table[role=\"grid\"] thead th[data-attribute=\"{$this->attribute}\"]').popover($ops);", \yii\web\View::POS_READY);
+        }
     }
 
     /**
@@ -75,15 +79,18 @@ trait FeaturedColumnTrait
     {
         /// XXX better change yii
         if ($this->hasProperty('attribute')) {
-            $save            = $this->attribute;
+            $save = $this->attribute;
             $this->attribute = $this->getSortAttribute();
         }
 
         if ($this->popover) {
             $this->headerOptions = ArrayHelper::merge($this->headerOptions, [
-                'data-toggle'  => 'popover',
-                'data-trigger' => 'hover',
-                'data-content' => $this->popover,
+                'data' => [
+                    'toggle' => 'popover',
+                    'trigger' => 'hover',
+                    'content' => $this->popover,
+                    'attribute' => $this->attribute,
+                ]
             ]);
         }
 
@@ -148,7 +155,7 @@ trait FeaturedColumnTrait
         }
         /// XXX better change yii
         if ($this->hasProperty('attribute')) {
-            $save            = $this->attribute;
+            $save = $this->attribute;
             $this->attribute = $this->getFilterAttribute();
         }
         $out = parent::renderFilterCellContent();
