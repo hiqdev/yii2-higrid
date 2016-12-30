@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * Advanced Grid for Yii2
  *
  * @link      https://github.com/hiqdev/yii2-higrid
@@ -111,7 +110,7 @@ class DetailView extends GridView
     /**
      * Renders a single column.
      *
-     * @param array $column the specification of the column to be rendered.
+     * @param array $column the specification of the column to be rendered
      * @param int   $index  the zero-based index of the column in the [[columns]] array
      *
      * @return string the rendering result

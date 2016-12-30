@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * Advanced Grid for Yii2
  *
  * @link      https://github.com/hiqdev/yii2-higrid
@@ -47,7 +46,7 @@ class GridView extends \yii\grid\GridView
      *  - array: options for Jquery Resizable Columns plugin initiate call
      *  - boolean false: resizable is disabled
      *
-     * Defaults to `['store' => new JsExpression('store')]`.
+     * Defaults to `['store' => new JsExpression('store')]`
      * @see registerResizableColumns()
      */
     public $resizableColumns = [];
@@ -133,7 +132,7 @@ class GridView extends \yii\grid\GridView
     }
 
     /**
-     * @var array Cached default columns.
+     * @var array cached default columns
      */
     protected static $_defaultColumns = [];
 

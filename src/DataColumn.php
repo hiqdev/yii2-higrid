@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * Advanced Grid for Yii2
  *
  * @link      https://github.com/hiqdev/yii2-higrid
@@ -21,7 +20,7 @@ class DataColumn extends \yii\grid\DataColumn
     use FeaturedColumnTrait;
 
     /**
-     * @var GridView the grid view object that owns this column.
+     * @var GridView the grid view object that owns this column
      */
     public $grid;
 }

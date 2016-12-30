@@ -1,6 +1,5 @@
 <?php
-
-/*
+/**
  * Advanced Grid for Yii2
  *
  * @link      https://github.com/hiqdev/yii2-higrid
@@ -54,7 +53,7 @@ trait FeaturedColumnTrait
             foreach ($this->defaultOptions as $k => $v) {
                 $this->{$k} = ArrayHelper::merge($v, $this->{$k});
             }
-        };
+        }
         $this->registerClientScript();
     }
 
@@ -90,7 +89,7 @@ trait FeaturedColumnTrait
                     'trigger' => 'hover',
                     'content' => $this->popover,
                     'attribute' => $this->attribute,
-                ]
+                ],
             ]);
         }
 
