@@ -1,7 +1,7 @@
 hiqdev/yii2-higrid commits history
 ----------------------------------
 
-## [Under development]
+## [0.1.0] - 2016-12-30
 
 - Popover init can work without `grid` attribute ([@silverfire], [@tafid], [@hiqsol])
 - Added representations functionality to GridView ([@hiqsol])
@@ -22,3 +22,4 @@ hiqdev/yii2-higrid commits history
 [andreyklochok@gmail.com]: https://github.com/tafid
 [Under development]: https://github.com/hiqdev/yii2-higrid/releases/tag/Under development
 [Under]: https://github.com/hiqdev/yii2-higrid/releases/tag/Under
+[0.1.0]: https://github.com/hiqdev/yii2-higrid/releases/tag/0.1.0
