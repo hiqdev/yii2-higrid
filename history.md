@@ -1,6 +1,12 @@
 hiqdev/yii2-higrid commits history
 ----------------------------------
 
+## [0.2] - 2017-01-05
+
+- Changed requirement for resizable-columns asset
+    - [8699767] 2017-01-05 csfixed [@silverfire]
+    - [61e5d11] 2017-01-05 Changed requirement for resizable-columns asset [@silverfire]
+
 ## [0.1.1] - 2016-12-30
 
 - Popover init can work without `grid` attribute
@@ -55,6 +61,8 @@ hiqdev/yii2-higrid commits history
 
 ## [Development started] - 2015-04-10
 
+## [0.1.0] - 2016-12-30
+
 [@silverfire]: https://github.com/SilverFire
 [d.naumenko.a@gmail.com]: https://github.com/SilverFire
 [@hiqsol]: https://github.com/hiqsol
@@ -102,7 +110,11 @@ hiqdev/yii2-higrid commits history
 [aa2e8a5]: https://github.com/hiqdev/yii2-higrid/commit/aa2e8a5
 [c1ae49d]: https://github.com/hiqdev/yii2-higrid/commit/c1ae49d
 [9eddb9a]: https://github.com/hiqdev/yii2-higrid/commit/9eddb9a
-[Under development]: https://github.com/hiqdev/yii2-higrid/releases/tag/Under development
+[Under development]: https://github.com/hiqdev/yii2-higrid/compare/0.1.1...HEAD
 [Under]: https://github.com/hiqdev/yii2-higrid/releases/tag/Under
 [0.1.0]: https://github.com/hiqdev/yii2-higrid/releases/tag/0.1.0
 [0.1.1]: https://github.com/hiqdev/yii2-higrid/releases/tag/0.1.1
+[8699767]: https://github.com/hiqdev/yii2-higrid/commit/8699767
+[61e5d11]: https://github.com/hiqdev/yii2-higrid/commit/61e5d11
+[Development started]: https://github.com/hiqdev/yii2-higrid/compare/0.1.0...Development started
+[0.2]: https://github.com/hiqdev/yii2-higrid/compare/0.1.1...0.2
