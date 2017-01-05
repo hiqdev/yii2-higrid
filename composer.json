@@ -47,7 +47,7 @@
         "yiisoft/yii2": "~2.0",
         "hiqdev/yii2-collection": "*@dev",
         "hiqdev/yii2-asset-datatables": "~1.10",
-        "hiqdev/yii2-asset-jquery-resizable-columns": "*@dev"
+        "hiqdev/yii2-asset-jquery-resizable-columns": "~0.2"
     },
     "require-dev": {
         "hiqdev/hidev-php": "<2.0",
