@@ -61,7 +61,7 @@ class RepresentationCollection implements RepresentationCollectionInterface
     public function getByName($name)
     {
         if (!$this->exists($name)) {
-            $this->getDefault();
+            return $this->getDefault();
         }
 
         return $this->getAll()[$name];
@@ -72,11 +72,12 @@ class RepresentationCollection implements RepresentationCollectionInterface
      */
     public function getDefault()
     {
-        if (count($this->getAll()) === 0) {
+        $representations = $this->getAll();
+        if (count($representations) === 0) {
             throw new InvalidConfigException('Default can not be applied because collection is empty.');
         }
 
-        return reset($this->getAll());
+        return reset($representations);
     }
 
     /**
