@@ -12,7 +12,6 @@ namespace hiqdev\higrid;
 
 use Closure;
 use hiqdev\yii2\assets\JqueryResizableColumns\ResizableColumnsAsset;
-use ReflectionClass;
 use Yii;
 use yii\data\ArrayDataProvider;
 use yii\helpers\ArrayHelper;
@@ -20,17 +19,15 @@ use yii\helpers\Json;
 use yii\web\JsExpression;
 
 /**
- * Class GridView.
+ * Class GridView
+ * Todo: good description.
+ * For now see [[columns()]] docs
  *
- * Gives 2 features:
- * - creates DetailView widget based on this GridView
- * - default columns functionality
- * - representations functionality
- * - summary section extendability with summaryRenderer()
+ * @author Andrii Vasyliev <sol@hiqdev.com>
+ * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
  */
 class GridView extends \yii\grid\GridView
 {
-    public $boxed = true;
     /**
      * {@inheritdoc}
      */
@@ -39,7 +36,7 @@ class GridView extends \yii\grid\GridView
     /**
      * {@inheritdoc}
      */
-    public static $detailViewClass = DetailView::class;
+    public $detailViewClass = DetailView::class;
 
     /**
      * @var array|boolean
@@ -71,6 +68,7 @@ class GridView extends \yii\grid\GridView
 
     /**
      * Registers ResizableColumns plugin when [[resizableColumns]] is not false.
+     * TODO: move somewhere
      */
     public function registerResizableColumns()
     {
@@ -99,82 +97,67 @@ class GridView extends \yii\grid\GridView
      */
     public static function detailView(array $config = [])
     {
-        $class = static::$detailViewClass ?: DetailView::class;
-        $grid  = Yii::createObject(ArrayHelper::merge([
+        /** @var static $grid */
+        $grid = Yii::createObject(ArrayHelper::merge([
             'class' => get_called_class(),
             'dataProvider' => new ArrayDataProvider(['allModels' => [$config['model']]]),
         ], ArrayHelper::remove($config, 'gridOptions', [])));
+        $class = $grid->detailViewClass ?: DetailView::class;
         $config['grid'] = $grid;
 
         return call_user_func([$class, 'widget'], $config);
     }
 
     /**
-     * Creates a [[DataColumn]] object with given additional config.
-     * @param array $config additional config for [[DataColumn]]
-     * @return DataColumn the column instance
+     * Returns array of columns configurations that will be used by widget to create
+     * data columns and render them.
+     *
+     * Array format:
+     *  key - column alias
+     *  value - column configuration array
+     *
+     * Example:
+     *
+     * ```php
+     * return [
+     *     'login_and_avatar' => [
+     *         'format' => 'raw',
+     *         'value' => function ($model) {
+     *             return Html::img($model->avatar) . $model->username;
+     *         }
+     *     ]
+     * ];
+     * ```
+     *
+     * Despite model does not have a `login_and_avatar` attribute, the following widget call will
+     * use the definition above to render value:
+     *
+     * ```php
+     * echo GridView::widget([
+     *     'dataProvider' => $dataProvider,
+     *     'columns' => ['login_and_avatar', 'status', 'actions'],
+     * ]);
+     * ```
+     *
+     * @return array
      */
-    protected function createColumnObject(array $config = [])
-    {
-        return Yii::createObject(array_merge([
-            'class' => $this->dataColumnClass ?: 'yii\grid\DataColumn',
-            'grid'  => $this,
-        ], $config));
-    }
-
-    /**
-     * Default (predefined) columns.
-     * @return array array of predefined DataColumn configs
-     */
-    protected static function defaultColumns()
+    public function columns()
     {
         return [];
     }
 
     /**
-     * @var array cached default columns
-     */
-    protected static $_defaultColumns = [];
-
-    /**
-     * Getter for $_defaultColumns.
+     * Creates a [[DataColumn]] object with given config.
      *
-     * @return array
+     * @param array $config config for [[DataColumn]]
+     * @return DataColumn the column instance
      */
-    public static function getDefaultColumns()
+    protected function createDataColumnByConfig(array $config = [])
     {
-        $class = get_called_class();
-        if (is_array(static::$_defaultColumns[$class])) {
-            return static::$_defaultColumns[$class];
-        }
-
-        return static::$_defaultColumns[$class] = static::gatherDefaultColumns();
-    }
-
-    /**
-     * Scans recursively by hierarchy for defaultColumns and caches to $_defaultColumns.
-     */
-    public static function gatherDefaultColumns()
-    {
-        $columns = static::defaultColumns();
-        $parent  = (new ReflectionClass(get_called_class()))->getParentClass();
-        if ($parent->hasMethod('gatherDefaultColumns')) {
-            $columns = array_merge(call_user_func([$parent->getName(), 'gatherDefaultColumns']), $columns);
-        }
-
-        return $columns;
-    }
-
-    /**
-     * Returns column from $_defaultColumns.
-     *
-     * @return array|null DataColumn config or null if not found
-     */
-    public static function column($name, array $config = [])
-    {
-        $column = static::getDefaultColumns()[$name];
-
-        return is_array($column) ? array_merge($column, $config) : null;
+        return Yii::createObject(array_merge([
+            'class' => $this->dataColumnClass ?: \yii\grid\DataColumn::class,
+            'grid'  => $this,
+        ], $config));
     }
 
     /**
@@ -182,95 +165,42 @@ class GridView extends \yii\grid\GridView
      */
     protected function createDataColumn($text)
     {
-        $column = static::column($text);
-        if (is_array($column)) {
-            $column['attribute'] = $column['attribute'] ?: $text;
+        $columns = $this->columns();
 
-            return $this->createColumnObject($column);
+        if (!isset($columns[$text]) || !is_array($columns[$text])) {
+            return parent::createDataColumn($text);
         }
 
-        return parent::createDataColumn($text);
+        $config = array_merge(['attribute' => $text], $columns[$text]);
+        return $this->createDataColumnByConfig($config);
     }
 
     /**
-     * @var string|Closure use it to change default summary rendering
+     * @var Closure use it to change default summary rendering
+     * Method signature:
+     *
+     * ```php
+     * function ($grid, $defaultSummaryCallback)
+     * ```
+     *
+     * Argument `$defaultSummaryCallback` will contain a Closure that will
+     * render default summary.
+     * ```
+     *
      */
     public $summaryRenderer;
 
+    /**
+     * {@inheritdoc}
+     */
     public function renderSummary()
     {
-        return $this->summaryRenderer instanceof Closure ? call_user_func($this->summaryRenderer, $this) : (parent::renderSummary() . $this->summaryRenderer);
-    }
+        if ($this->summaryRenderer instanceof Closure) {
+            return call_user_func($this->summaryRenderer, $this, function () {
+                return parent::renderSummary();
+            });
+        }
 
-    public function parentSummary()
-    {
         return parent::renderSummary();
-    }
-
-    /**
-     * @var string selected representation
-     */
-    protected $_representation;
-
-    /**
-     * @var array available representations
-     */
-    protected static $_representations = [];
-
-    /**
-     * Default (predefined) representations.
-     * Representation is array of label and columns like this:
-     * TODO add Representation class
-     * [
-     *     'label' => Yii::t('cat', 'common'),
-     *     'columns' => ['id', 'name', ... ],
-     * ].
-     * @return array array of predefined representations
-     */
-    public static function defaultRepresentations()
-    {
-        return [];
-    }
-
-    /**
-     * Returns representations.
-     * If not set gets from defaultRepresentations().
-     * @static
-     * @return array
-     */
-    public static function getRepresentations()
-    {
-        $class = get_called_class();
-        if (!isset(static::$_representations[$class])) {
-            static::$_representations[$class] = array_filter(static::defaultRepresentations());
-        }
-
-        return static::$_representations[$class];
-    }
-
-    /**
-     * Sets current representation.
-     * Also sets columns list.
-     * @param string $value
-     */
-    public function setRepresentation($value)
-    {
-        $representations = static::getRepresentations();
-        if (!isset($representations[$value])) {
-            $value = key($representations);
-        }
-        if ($value) {
-            $this->columns = $representations[$value]['columns'];
-            $this->_representation = $value;
-        }
-    }
-
-    /**
-     * Returns current selected representation.
-     * @return string
-     */
-    public function getRepresentation()
-    {
-        return $this->_representation;
     }
 }

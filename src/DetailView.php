@@ -19,7 +19,7 @@ use yii\helpers\Html;
 /**
  * DetailView displays the detail of a single data [[Model]].
  *
- * hiqdev\higrid\DetailView is similar to [[yii\widgets\DetailView]] but uses [[Column]]
+ * [[hiqdev\higrid\DetailView]] is similar to [[yii\widgets\DetailView]] but uses [[Column]]
  * to show header and data part of given [[Model]].
  *
  * The contents of the detail table are configured in terms of [[Column]]
@@ -30,7 +30,7 @@ use yii\helpers\Html;
  *
  * A typical usage of DetailView is as follows:
  *
- * ~~~
+ * ```php
  * echo DetailView::widget([
  *     'model' => $model,
  *     'columns' => [
@@ -46,7 +46,7 @@ use yii\helpers\Html;
  *         ],
  *     ],
  * ]);
- * ~~~
+ * ```
  *
  * @author Andrii Vasyliev <sol@hiqdev.com>
  */
@@ -63,9 +63,9 @@ class DetailView extends GridView
      *                      and `{value}` will be replaced with the label and the value of the corresponding attribute.
      *                      If a callback (e.g. an anonymous function), the signature must be as follows:
      *
-     * ~~~
+     * ```php
      * function ($attribute, $index, $widget)
-     * ~~~
+     * ```
      *
      * where `$attribute` refer to the specification of the attribute being rendered, `$index` is the zero-based
      * index of the attribute in the [[attributes]] array, and `$widget` refers to this widget instance.
@@ -87,6 +87,7 @@ class DetailView extends GridView
         if ($this->model === null) {
             throw new InvalidConfigException('Please specify the "model" property.');
         }
+
         $this->dataProvider = new ArrayDataProvider(['allModels' => [$this->model]]);
         parent::init();
     }
@@ -98,20 +99,20 @@ class DetailView extends GridView
     public function run()
     {
         $rows = [];
-        $i    = 0;
+        $i = 0;
         foreach ($this->columns as $column) {
             $rows[] = $this->renderColumn($column, $i++);
         }
 
         $tag = ArrayHelper::remove($this->options, 'tag', 'table');
-        echo Html::tag($tag, implode("\n", $rows), $this->options);
+        return Html::tag($tag, implode("\n", $rows), $this->options);
     }
 
     /**
      * Renders a single column.
      *
      * @param array $column the specification of the column to be rendered
-     * @param int   $index  the zero-based index of the column in the [[columns]] array
+     * @param int $index the zero-based index of the column in the [[columns]] array
      *
      * @return string the rendering result
      */
@@ -122,9 +123,9 @@ class DetailView extends GridView
                 '{label}' => $column->renderHeaderCell(),
                 '{value}' => $column->renderDataCell($this->model, $this->model->getPrimaryKey(), 0),
             ]);
-        } else {
-            return call_user_func($this->template, $column, $index, $this);
         }
+
+        return call_user_func($this->template, $column, $index, $this);
     }
 
     /**
