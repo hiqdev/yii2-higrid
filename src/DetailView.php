@@ -111,7 +111,7 @@ class DetailView extends GridView
     /**
      * Renders a single column.
      *
-     * @param array $column the specification of the column to be rendered
+     * @param DataColumn $column the specification of the column to be rendered
      * @param int $index the zero-based index of the column in the [[columns]] array
      *
      * @return string the rendering result
