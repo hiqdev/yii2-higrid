@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Grid for Yii2
+ * Advanced Grid for Yii2.
  *
  * @link      https://github.com/hiqdev/yii2-higrid
  * @package   yii2-higrid
@@ -21,7 +21,7 @@ use yii\web\JsExpression;
 /**
  * Class GridView
  * Todo: good description.
- * For now see [[columns()]] docs
+ * For now see [[columns()]] docs.
  *
  * @author Andrii Vasyliev <sol@hiqdev.com>
  * @author Dmytro Naumenko <d.naumenko.a@gmail.com>
@@ -68,7 +68,7 @@ class GridView extends \yii\grid\GridView
 
     /**
      * Registers ResizableColumns plugin when [[resizableColumns]] is not false.
-     * TODO: move somewhere
+     * TODO: move somewhere.
      */
     public function registerResizableColumns()
     {
@@ -186,7 +186,6 @@ class GridView extends \yii\grid\GridView
      * Argument `$defaultSummaryCallback` will contain a Closure that will
      * render default summary.
      * ```
-     *
      */
     public $summaryRenderer;
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Advanced Grid for Yii2
+ * Advanced Grid for Yii2.
  *
  * @link      https://github.com/hiqdev/yii2-higrid
  * @package   yii2-higrid

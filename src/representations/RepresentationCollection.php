@@ -1,9 +1,16 @@
 <?php
+/**
+ * Advanced Grid for Yii2.
+ *
+ * @link      https://github.com/hiqdev/yii2-higrid
+ * @package   yii2-higrid
+ * @license   BSD-3-Clause
+ * @copyright Copyright (c) 2015-2017, HiQDev (http://hiqdev.com/)
+ */
 
 namespace hiqdev\higrid\representations;
 
 use Yii;
-use yii\base\Exception;
 use yii\base\InvalidConfigException;
 
 /**
@@ -43,12 +50,12 @@ class RepresentationCollection implements RepresentationCollectionInterface
         foreach ($this->representations as $name => $representation) {
             if (!is_object($representation)) {
                 $representation = $this->representations[$name] = Yii::createObject(array_merge([
-                    'class' => Representation::class
+                    'class' => Representation::class,
                 ], $representation));
             }
 
             if (!$representation instanceof RepresentationInterface) {
-                throw new InvalidConfigException('Representation "' . $name .'" must be instance of RepresentationInterface');
+                throw new InvalidConfigException('Representation "' . $name . '" must be instance of RepresentationInterface');
             }
         }
 

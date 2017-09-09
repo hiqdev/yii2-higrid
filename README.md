@@ -1,5 +1,4 @@
-Yii2 HiGrid
-===========
+# Yii2 HiGrid
 
 **Advanced Grid for Yii2**
 
@@ -10,7 +9,7 @@ Yii2 HiGrid
 [![Scrutinizer Code Quality](https://img.shields.io/scrutinizer/g/hiqdev/yii2-higrid.svg)](https://scrutinizer-ci.com/g/hiqdev/yii2-higrid/)
 [![Dependency Status](https://www.versioneye.com/php/hiqdev:yii2-higrid/dev-master/badge.svg)](https://www.versioneye.com/php/hiqdev:yii2-higrid/dev-master)
 
-Grid DetailView: use grid columns for DetailView and more later
+Allows to use grid columns for DetailView and more.
 
 ## Installation
 
