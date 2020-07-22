@@ -19,27 +19,19 @@ use yii\base\BaseObject;
  */
 class Representation extends BaseObject implements RepresentationInterface
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     public $label;
 
-    /**
-     * @var array
-     */
+    /** @var array */
     public $columns = [];
 
-    /**
-     * {@inheritdoc}
-     */
+    /** {@inheritdoc} */
     public function getColumns()
     {
         return $this->columns;
     }
 
-    /**
-     * @return {@inheritdoc}
-     */
+    /** @return {@inheritdoc} */
     public function getLabel()
     {
         return $this->label;
