@@ -57,6 +57,10 @@ class RepresentationCollection implements RepresentationCollectionInterface
             if (!$representation instanceof RepresentationInterface) {
                 throw new InvalidConfigException('Representation "' . $name . '" must be instance of RepresentationInterface');
             }
+
+            if (!$representation->isVisible()) {
+                unset($this->representations[$name]);
+            }
         }
 
         return $this->representations;

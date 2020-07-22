@@ -32,4 +32,11 @@ interface RepresentationInterface
      * @return string
      */
     public function getLabel();
+
+    /**
+     * Is visible
+     *
+     * @return bool
+     */
+    public function isVisible(): bool;
 }

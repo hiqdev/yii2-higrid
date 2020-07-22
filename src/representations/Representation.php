@@ -25,6 +25,9 @@ class Representation extends BaseObject implements RepresentationInterface
     /** @var array */
     public $columns = [];
 
+    /** @var bool */
+    public $visible = true;
+
     /** {@inheritdoc} */
     public function getColumns()
     {
@@ -35,5 +38,11 @@ class Representation extends BaseObject implements RepresentationInterface
     public function getLabel()
     {
         return $this->label;
+    }
+
+    /** @return {@inheritdoc} */
+    public function isVisible(): bool
+    {
+        return $this->visible;
     }
 }
