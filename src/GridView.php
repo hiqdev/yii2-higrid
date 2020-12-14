@@ -38,6 +38,8 @@ class GridView extends \yii\grid\GridView
      */
     public $detailViewClass = DetailView::class;
 
+    public ?Closure $tableFooterRenderer = null;
+
     /**
      * @var array|boolean
      *  - array: options for Jquery Resizable Columns plugin initiate call
@@ -201,5 +203,14 @@ class GridView extends \yii\grid\GridView
         }
 
         return parent::renderSummary();
+    }
+
+    public function renderTableFooter(): string
+    {
+        if ($this->tableFooterRenderer instanceof Closure) {
+            return call_user_func($this->tableFooterRenderer, $this, fn() => parent::renderTableFooter());
+        }
+
+        return parent::renderTableFooter();
     }
 }
