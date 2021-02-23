@@ -51,6 +51,11 @@ trait FeaturedColumnTrait
     public $exportedValue;
 
     /**
+     * A list of column names from the current grid that should be inserted instead of the current one during export
+     */
+    public array $exportedColumns = [];
+
+    /**
      * {@inheritdoc}
      */
     public function init()
