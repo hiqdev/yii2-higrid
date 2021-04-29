@@ -77,7 +77,7 @@ class DetailView extends GridView
      *
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
-    public $options = ['class' => 'table table-striped table-bordered detail-view'];
+    public $options = ['class' => 'table table-striped table-bordered table-condensed detail-view'];
 
     /**
      * Initializes dataProvider.
